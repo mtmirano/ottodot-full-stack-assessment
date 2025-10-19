@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
     
     const solutionPrompt = `You are a friendly Primary 5 math tutor helping a student understand how to solve this problem.
     Problem: "${problemText}"

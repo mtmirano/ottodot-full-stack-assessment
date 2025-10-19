@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     
     const isCorrect = Math.abs(userNumericAnswer - correctAnswer) < 0.01;
     
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
     
     const feedbackPrompt = `You are a friendly and encouraging Primary 5 math tutor. A student just attempted this problem:
     Problem: ${problemText}
