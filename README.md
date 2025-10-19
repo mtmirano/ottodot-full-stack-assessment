@@ -130,7 +130,7 @@ When submitting your assessment, provide:
 2. **Live Demo URL**: [Your Vercel deployment](https://ottodot-full-stack-assessment.vercel.app/)
 3. **Supabase Credentials**: Add these to your README for testing:
    ```
-   SUPABASE_URL: ttps://walrblnkrmignhqloeyp.supabase.co
+   SUPABASE_URL: https://walrblnkrmignhqloeyp.supabase.co
    SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhbHJibG5rcm1pZ25ocWxvZXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3ODU2NTEsImV4cCI6MjA3NjM2MTY1MX0.J9U98zf99qSZ3BvWr01z40OdoFEaSzJLcV-o2guU520
    ```
 
