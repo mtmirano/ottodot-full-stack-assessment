@@ -10,30 +10,28 @@ export async function POST() {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
 
     const prompt = `Generate a math word problem suitable for a Primary 5 student (Singapore curriculum, age 10-11).
+    The problem should:
+    - Be age-appropriate and engaging
+    - Involve real-world scenarios (shopping, sports, time, measurement, fractions, decimals, etc.)
+    - Have a clear numerical answer
+    - Be challenging but solvable with Primary 5 math concepts
 
-The problem should:
-- Be age-appropriate and engaging
-- Involve real-world scenarios (shopping, sports, time, measurement, fractions, decimals, etc.)
-- Have a clear numerical answer
-- Be challenging but solvable with Primary 5 math concepts
+    Return ONLY a valid JSON object with this exact structure (no markdown, no extra text):
+    {
+      "problem_text": "The complete word problem as a string",
+      "final_answer": the numerical answer as a number (not a string)
+    }
 
-Return ONLY a valid JSON object with this exact structure (no markdown, no extra text):
-{
-  "problem_text": "The complete word problem as a string",
-  "final_answer": the numerical answer as a number (not a string)
-}
-
-Example:
-{
-  "problem_text": "Sarah has $45.50. She wants to buy 3 books that cost $12.80 each. How much money will she have left?",
-  "final_answer": 7.1
-}`;
+    Example:
+    {
+      "problem_text": "Sarah has $45.50. She wants to buy 3 books that cost $12.80 each. How much money will she have left?",
+      "final_answer": 7.1
+    }`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
 
-    // Parse the JSON response
     let problemData;
     try {
       const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();

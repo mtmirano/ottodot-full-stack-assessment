@@ -15,7 +15,6 @@ export async function POST(request: Request) {
       );
     }
     
-    // Parse user answer and check if correct
     const userNumericAnswer = parseFloat(userAnswer);
     
     if (isNaN(userNumericAnswer)) {
@@ -25,34 +24,30 @@ export async function POST(request: Request) {
       );
     }
     
-    // Check if answer is correct (with small tolerance for floating point)
     const isCorrect = Math.abs(userNumericAnswer - correctAnswer) < 0.01;
     
-    // Generate personalized feedback using Gemini AI
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
     
     const feedbackPrompt = `You are a friendly and encouraging Primary 5 math tutor. A student just attempted this problem:
+    Problem: ${problemText}
+    Correct Answer: ${correctAnswer}
+    Student's Answer: ${userAnswer}
+    Is Correct: ${isCorrect}
 
-Problem: ${problemText}
-Correct Answer: ${correctAnswer}
-Student's Answer: ${userAnswer}
-Is Correct: ${isCorrect}
+    Generate personalized feedback for the student. Your feedback should:
+    - Start by telling them if they're correct or incorrect
+    - If correct: Praise them enthusiastically and explain why their answer is right
+    - If incorrect: Be encouraging, explain what the correct answer is, and gently guide them through the correct approach
+    - Use a warm, supportive tone appropriate for a 10-11 year old
+    - Keep it concise (3-5 sentences)
+    - End with encouragement to keep practicing
 
-Generate personalized feedback for the student. Your feedback should:
-- Start by telling them if they're correct or incorrect
-- If correct: Praise them enthusiastically and explain why their answer is right
-- If incorrect: Be encouraging, explain what the correct answer is, and gently guide them through the correct approach
-- Use a warm, supportive tone appropriate for a 10-11 year old
-- Keep it concise (3-5 sentences)
-- End with encouragement to keep practicing
-
-Return ONLY the feedback text, no JSON, no formatting.`;
+    Return ONLY the feedback text, no JSON, no formatting.`;
 
     const result = await model.generateContent(feedbackPrompt);
     const response = await result.response;
     const feedbackText = response.text().trim();
     
-    // Save submission to database
     const { error: submissionError } = await supabase
       .from('math_problem_submissions')
       .insert({

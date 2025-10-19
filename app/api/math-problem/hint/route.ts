@@ -17,17 +17,16 @@ export async function POST(request: Request) {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
     
     const hintPrompt = `You are a helpful Primary 5 math tutor. A student is stuck on this problem:
+    "${problemText}"
 
-"${problemText}"
+    Give them a helpful hint that guides them toward the solution WITHOUT revealing the answer. Your hint should:
+    - Help them understand what approach to take
+    - Break down the problem into steps
+    - Use encouraging language
+    - Be 1-2 sentences maximum
+    - NOT give away the final answer
 
-Give them a helpful hint that guides them toward the solution WITHOUT revealing the answer. Your hint should:
-- Help them understand what approach to take
-- Break down the problem into steps
-- Use encouraging language
-- Be 1-2 sentences maximum
-- NOT give away the final answer
-
-Return ONLY the hint text, no formatting.`;
+    Return ONLY the hint text, no formatting.`;
 
     const result = await model.generateContent(hintPrompt);
     const response = await result.response;
